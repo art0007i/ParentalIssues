@@ -1,12 +1,11 @@
 using HarmonyLib;
 using NeosModLoader;
 using System;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using FrooxEngine;
 using BaseX;
+using System.Reflection.Emit;
 
 namespace ParentalIssues
 {
@@ -14,7 +13,7 @@ namespace ParentalIssues
     {
         public override string Name => "ParentalIssues";
         public override string Author => "art0007i";
-        public override string Version => "1.0.0";
+        public override string Version => "1.1.0";
         public override string Link => "https://github.com/art0007i/ParentalIssues/";
         public override void OnEngineInit()
         {
@@ -45,12 +44,20 @@ namespace ParentalIssues
                 {
                     if(code.operand is string s && s.StartsWith(" - "))
                     {
-                        code.operand = "'s " + s.Remove(0, 3);
+                        yield return new CodeInstruction(OpCodes.Call, typeof(ParentalIssues).GetMethod(nameof(ProcessString)));
+                        code.operand = s.Remove(0, 2);
                     }
                     yield return code;
                 }
-
             }
+        }
+        public static string ProcessString(string str)
+        {
+            if (str.ToLower().EndsWith("s"))
+            {
+                return str + "'";
+            }
+            return str + "'s";
         }
     }
 }
