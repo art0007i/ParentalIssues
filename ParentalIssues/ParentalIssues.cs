@@ -1,19 +1,19 @@
 using HarmonyLib;
-using NeosModLoader;
+using ResoniteModLoader;
 using System;
 using System.Reflection;
 using System.Collections.Generic;
 using FrooxEngine;
-using BaseX;
+using Elements.Core;
 using System.Reflection.Emit;
 
 namespace ParentalIssues
 {
-    public class ParentalIssues : NeosMod
+    public class ParentalIssues : ResoniteMod
     {
         public override string Name => "ParentalIssues";
         public override string Author => "art0007i";
-        public override string Version => "1.1.0";
+        public override string Version => "2.0.0";
         public override string Link => "https://github.com/art0007i/ParentalIssues/";
         public override void OnEngineInit()
         {
